@@ -51,4 +51,19 @@ func (s *InMemoryGraph) UpsertLink(link *graph.Link) error {
 		}
 		return nil
 	}
+
+	// Assign new ID.
+	for {
+		link.ID = uuid.New()
+		if s.links[link.ID] == nil {
+			break
+		}
+	}
+
+	// Make copy and insert link into map structure.
+	lCopy := new(graph.Link)
+	*lCopy = *link
+	s.linkURLIndex[lCopy.URL] = lCopy
+	s.links[lCopy.ID] = lCopy
+	return nil
 }
