@@ -112,10 +112,10 @@ func (s *InMemoryGraph) UpsertEdge(edge *graph.Edge) error {
 	return nil
 }
 
-// FindLink looks up a link by ID and returns the link element.
+// FindLink looks up a link by ID and returns a copy of the link stored in graph.
 func (s *InMemoryGraph) FindLink(id uuid.UUID) (*graph.Link, error) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 
 	link := s.links[id]
 	if link == nil {
@@ -125,4 +125,21 @@ func (s *InMemoryGraph) FindLink(id uuid.UUID) (*graph.Link, error) {
 	lCopy := new(graph.Link)
 	*lCopy = *link
 	return lCopy, nil
+}
+
+// Links returns an iterator for the set of links whose IDs belong to the
+// [fromID, toID] range and were retrieved before the provided timestamp.
+func (s *InMemoryGraph) Links(fromID, toID uuid.UUID, retrievedBefore time.Time) (graph.LinkIterator, error) {
+	from, to := fromID.String(), toID.String()
+
+	s.mu.RLock()
+	var list []*graph.Link
+	for linkID, link := range s.links {
+		if id := linkID.String(); id >= from && id < to && link.RetrievedAt.Before(retrievedBefore) {
+			list = append(list, link)
+		}
+	}
+	s.mu.RUnlock()
+
+	return &linkIterator{s: s, links: list}, nil
 }
