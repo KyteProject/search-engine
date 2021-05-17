@@ -158,6 +158,9 @@ database.
 
 ## Migrations
 
+Migrations will use the `gomigrate` tool <small>_[6]_</small>. This tool helps us to update or rollback our database
+schema from the command line.
+
 # Acknowledgements
 
 This project and information is sourced primarily from the book _Hands-On Software Engineering with Golang_ by Achilleas
@@ -171,3 +174,4 @@ personal notes. No infringement is intended.
 3. [https://team-coder.com/solid-principles/](https://team-coder.com/solid-principles/)
 4. [https://www.cockroachlabs.com/docs/v20.2/frequently-asked-questions.html#what-is-cockroachdb](https://www.cockroachlabs.com/docs/v20.2/frequently-asked-questions.html#what-is-cockroachdb)
 5. [https://en.wikipedia.org/wiki/ACID](https://en.wikipedia.org/wiki/ACID)
+6. [https://github.com/golang-migrate/migrate](https://github.com/golang-migrate/migrate)
