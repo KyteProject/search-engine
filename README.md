@@ -160,6 +160,10 @@ database.
 
 # Acknowledgements
 
+This project and information is sourced primarily from the book _Hands-On Software Engineering with Golang_ by Achilleas
+Anagnostopoulos. All copyrighted material referenced in this writeup is for educational use and should be taken as my
+personal notes. No infringement is intended.
+
 # References
 
 1. [Hands-On Software Engineering with Golang - Achilleas Anagnostopoulos [Packt Publishing]](https://www.amazon.co.uk/Hands-Software-Engineering-Golang-programming/dp/1838554491)
