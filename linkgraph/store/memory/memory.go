@@ -70,6 +70,7 @@ func (s *InMemoryGraph) UpsertLink(link *graph.Link) error {
 	return nil
 }
 
+// UpsertEdge creates a new edge or updates an existing edge.
 func (s *InMemoryGraph) UpsertEdge(edge *graph.Edge) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -109,4 +110,19 @@ func (s *InMemoryGraph) UpsertEdge(edge *graph.Edge) error {
 	// edge's source link.
 	s.linkEdgeMap[edge.Source] = append(s.linkEdgeMap[edge.Source], eCopy.ID)
 	return nil
+}
+
+// FindLink looks up a link by ID and returns the link element.
+func (s *InMemoryGraph) FindLink(id uuid.UUID) (*graph.Link, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	link := s.links[id]
+	if link == nil {
+		return nil, xerrors.Errorf("find link: %w", graph.ErrNotFound)
+	}
+
+	lCopy := new(graph.Link)
+	*lCopy = *link
+	return lCopy, nil
 }
