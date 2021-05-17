@@ -40,8 +40,6 @@ use the template from Attislan. _(2)_
 
 ## Functional Requirements
 
----
-
 ### **User Story - Link Submission**
 
 > As an... **end-user**,
@@ -109,8 +107,6 @@ use the template from Attislan. _(2)_
 - Metric-based alerts are defined and linked to a paging service.
 
 ## Non-functional Requirements
-
----
 
 ### Service-level Objectives
 
