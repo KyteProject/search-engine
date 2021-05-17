@@ -143,3 +143,55 @@ func (s *InMemoryGraph) Links(fromID, toID uuid.UUID, retrievedBefore time.Time)
 
 	return &linkIterator{s: s, links: list}, nil
 }
+
+// Edges returns an iterator for the set of edges whose source vertex IDs
+// belong to the [fromID, toID) range and were updated before the provided
+// timestamp.
+func (s *InMemoryGraph) Edges(fromID, toID uuid.UUID, updatedBefore time.Time) (graph.EdgeIterator, error) {
+	from, to := fromID.String(), toID.String()
+
+	s.mu.RLock()
+
+	// Iterate links in the graph
+	var list []*graph.Edge
+	for linkID := range s.links {
+		// Skip links that do not belong to the partition we need
+		if id := linkID.String(); id < from || id >= to {
+			continue
+		}
+
+		// Iterate the list of edges (via the linkEdgeMap field)
+		for _, edgeID := range s.linkEdgeMap[linkID] {
+			// append edges that satisfy the updated-before-X predicate
+			if edge := s.edges[edgeID]; edge.UpdatedAt.Before(updatedBefore) {
+				list = append(list, edge)
+			}
+		}
+	}
+	s.mu.RUnlock()
+
+	return &edgeIterator{s: s, edges: list}, nil
+}
+
+// RemoveStaleEdges removes any edge that originates from the specified link ID
+// and was updated before the specified timestamp.
+func (s *InMemoryGraph) RemoveStaleEdges(fromID uuid.UUID, updatedBefore time.Time) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	// Iterate list of edges that originate from the specified source link
+	var newEdgeList edgeList
+	for _, edgeID := range s.linkEdgeMap[fromID] {
+		edge := s.edges[edgeID]
+		if edge.UpdatedAt.Before(updatedBefore) {
+			delete(s.edges, edgeID)
+			continue
+		}
+
+		newEdgeList = append(newEdgeList, edgeID)
+	}
+
+	// Replace edge list or origin link with the filtered edge list
+	s.linkEdgeMap[fromID] = newEdgeList
+	return nil
+}
