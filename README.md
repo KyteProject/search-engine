@@ -1,11 +1,11 @@
 # Introduction
 
-Search Engine is an educational project and functional search engine. The purpose was to explore and familiarise with
-various technology and demonstrate an understanding of fundamental software engineering concepts.
+Search Engine is an educational project and functional search engine. The purpose was to explore and familiarise myself
+with various technology and demonstrate an understanding of fundamental software engineering concepts.
 
-To begin with, the project employs a `monolithic` architecture. The components are built using the `proxy` design
-pattern which allows them to remain decoupled and communicate with each other. This allows for extracting components
-into their own service should the need arise and make the transition to a `microservice` architecture simple.
+Initially, the project employs a monolithic architecture. The components are built using the `proxy` design pattern that
+allows them to remain decoupled and communicate - this allows for extracting components into a separate service should
+the need arise and simplify the transition to a `microservice` architecture.
 
 The project adheres to `SOLID` principles. _(3)_
 
@@ -126,8 +126,23 @@ use the template from Attislan. _(2)_
 
 ### System Component Model
 
-UML component diagram for the search engine. _(1)_
 ![img.png](img.png)
+<small>UML component diagram for the search engine. _(1)_</small>
+
+---
+
+# Data, Storage and Persistence
+
+As this is a search engine that catalogues links and their connections to each other, a `graph-based model` is an
+optimum choice for the link store.
+
+![img_1.png](img_1.png)
+<small>ER diagram for the link graph component. _(1)_</small>
+
+This gets implemented as an `in-memory` store to aid with running tests on the link graph component, this allows it to
+stay self-contained and avoid spinning up additional database instances for testing or demonstration.
+
+Additionally, it makes use of a database backed graph implementation with `CockroachDB` as the main persistent store.
 
 # Acknowledgements
 
