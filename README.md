@@ -1,13 +1,14 @@
 # Introduction
 
-Search Engine is an educational project and functional search engine. The purpose was to explore and familiarise myself
-with various technology and demonstrate an understanding of fundamental software engineering concepts.
+Search Engine is a personal, educational project and functional search engine. The purpose was to explore and
+familiarise myself with various technology and demonstrate an understanding of fundamental software engineering
+concepts.
 
 Initially, the project employs a monolithic architecture. The components are built using the `proxy` design pattern that
 allows them to remain decoupled and communicate - this allows for extracting components into a separate service should
 the need arise and simplify the transition to a `microservice` architecture.
 
-The project adheres to `SOLID` principles. _(3)_
+The project adheres to `SOLID` principles. <small>_[3]_</small>
 
 - **Single Responsibility Principle**
 
@@ -36,7 +37,7 @@ components needed; these were then turned into cards and organised on a `Kanban`
 # Requirements Analysis
 
 We answer two things: *what* do we need to develop, and *how completely* would it meet our requirements. `User Stories`
-use the template from Attislan. _(2)_
+use the template from Attislan. <small>_[2]_</small>
 
 ## Functional Requirements
 
@@ -123,22 +124,39 @@ use the template from Attislan. _(2)_
 ### System Component Model
 
 ![img.png](img.png)
-<small>UML component diagram for the search engine. _(1)_</small>
-
----
+<small>UML component diagram for the search engine. _[1]_</small>
 
 # Data, Storage and Persistence
+
+## Link Graph
 
 As this is a search engine that catalogues links and their connections to each other, a `graph-based model` is an
 optimum choice for the link store.
 
 ![img_1.png](img_1.png)
-<small>ER diagram for the link graph component. _(1)_</small>
+<small>ER diagram for the link graph component. _[1]_</small>
 
-This gets implemented as an `in-memory` store to aid with running tests on the link graph component, this allows it to
+This gets implemented as an `in-memory` store to aid with running tests on the link graph component; this allows it to
 stay self-contained and avoid spinning up additional database instances for testing or demonstration.
 
-Additionally, it makes use of a database backed graph implementation with `CockroachDB` as the main persistent store.
+Additionally, it uses a database-backed graph implementation with `CockroachDB` as the primary persistence store.
+
+What is `CockroachDB?` Here is the official description as provided by the `CockroachDB` docs <small>_[4]_</small>:
+> CockroachDB is a distributed SQL database built on a transactional and strongly consistent key-value store. It **scales horizontally**; survives disk, machine, rack, and even datacenter failures with minimal latency disruption and no manual intervention; **supports strongly-consistent ACID transactions**; and provides a **familiar SQL API** for structuring, manipulating, and querying data.
+
+This means that the database scaled horizontally with very little overhead and only requires adding additional nodes.
+Clusters will automatically balance themselves to nodes with more capacity.
+
+Every transaction in CockroachDB guarantees ACID semantics spanning arbitrary tables and rows, even when data is
+distributed.
+
+Taken from [Wikipedia](https://en.wikipedia.org/wiki/ACID):
+> ACID (atomicity, consistency, isolation, durability) is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. In the context of databases, a sequence of database operations that satisfies the ACID properties (which can be perceived as a single logical operation on the data) is called a transaction. For example, a transfer of funds from one bank account to another, even involving multiple changes such as debiting one account and crediting another, is a single transaction. <small>_[5]_</small>
+
+We also get PostgreSQL like query syntax, and the benefit of using the pure-Go Postgres package to connect to the
+database.
+
+## Migrations
 
 # Acknowledgements
 
@@ -147,4 +165,5 @@ Additionally, it makes use of a database backed graph implementation with `Cockr
 1. [Hands-On Software Engineering with Golang - Achilleas Anagnostopoulos [Packt Publishing]](https://www.amazon.co.uk/Hands-Software-Engineering-Golang-programming/dp/1838554491)
 1. [https://www.atlassian.com/agile/project-management/user-stories](https://www.atlassian.com/agile/project-management/user-stories)
 3. [https://team-coder.com/solid-principles/](https://team-coder.com/solid-principles/)
-
+4. [https://www.cockroachlabs.com/docs/v20.2/frequently-asked-questions.html#what-is-cockroachdb](https://www.cockroachlabs.com/docs/v20.2/frequently-asked-questions.html#what-is-cockroachdb)
+5. [https://en.wikipedia.org/wiki/ACID](https://en.wikipedia.org/wiki/ACID)
