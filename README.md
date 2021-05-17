@@ -44,7 +44,9 @@ use the template from Attislan. _(2)_
 
 ### **User Story - Link Submission**
 
-> As an... **end-user**, I need to be able to... **submit new links**, so as to... **update the link graph and make their contents searchable**.
+> As an... **end-user**,
+> I need to be able to... **submit new links**,
+> So as to... **update the link graph and make their contents searchable**.
 
 **Acceptance criteria:**
 
@@ -54,7 +56,9 @@ use the template from Attislan. _(2)_
 
 ### **User Story - Search**
 
-> As an... **end-user**, I need to be able to... **submit full-text search queries**, so as to... **retrieve a list of relevant results from the indexed content.**
+> As an... **end-user**,
+> I need to be able to... **submit full-text search queries**,
+> So as to... **retrieve a list of relevant results from the indexed content.**
 
 **Acceptance criteria:**
 
@@ -66,7 +70,9 @@ use the template from Attislan. _(2)_
 
 ### **User Story - Crawl Link Graph**
 
-> As a... **crawler backend system**, I need to be able to... **obtain a list of sanitised links**, so as to... **fetch and index their contents while also expanding the link graph with newly discovered links.**.
+> As a... **crawler backend system**,
+> I need to be able to... **obtain a list of sanitised links**,
+> so as to... **fetch and index their contents while also expanding the link graph with newly discovered links.**.
 
 **Acceptance criteria:**
 
@@ -78,7 +84,9 @@ use the template from Attislan. _(2)_
 
 ### **User Story - Calculate PageRank Scores**
 
-> As a... **PageRank calculator backend system**, I need to be able to... **access the link graph**, so as to... **calculate and persist the PageRank score for each link**.
+> As a... **PageRank calculator backend system**,
+> I need to be able to... **access the link graph**,
+> So as to... **calculate and persist the PageRank score for each link**.
 
 **Acceptance criteria:**
 
@@ -88,7 +96,9 @@ use the template from Attislan. _(2)_
 
 ### **User Story - Monitor Service Health**
 
-> As a... **Member of the** **engineering team**, I need to be able to... **monitor the health of the application and services**, so as to... **detect and address application issues**.
+> As a... **Member of the** **engineering team**,
+> I need to be able to... **monitor the health of the application and services**,
+> So as to... **detect and address application issues**.
 
 **Acceptance criteria:**
 
