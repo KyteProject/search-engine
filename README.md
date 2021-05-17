@@ -131,9 +131,6 @@ UML component diagram for the search engine. _(1)_
 
 # Acknowledgements
 
-All references provided at the bottom of this document, and the primary source for this project is the excellent book
-Hands-On Software Engineering with Golang.
-
 # References
 
 1. [Hands-On Software Engineering with Golang - Achilleas Anagnostopoulos [Packt Publishing]](https://www.amazon.co.uk/Hands-Software-Engineering-Golang-programming/dp/1838554491)

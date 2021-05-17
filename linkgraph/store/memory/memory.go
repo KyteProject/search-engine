@@ -3,7 +3,9 @@ package memory
 import (
 	"github.com/google/uuid"
 	"github.com/kyteproject/search-engine/linkgraph/graph"
+	"golang.org/x/xerrors"
 	"sync"
+	"time"
 )
 
 // Compile-time check for ensuring InMemoryGraph implements Graph.
@@ -65,5 +67,46 @@ func (s *InMemoryGraph) UpsertLink(link *graph.Link) error {
 	*lCopy = *link
 	s.linkURLIndex[lCopy.URL] = lCopy
 	s.links[lCopy.ID] = lCopy
+	return nil
+}
+
+func (s *InMemoryGraph) UpsertEdge(edge *graph.Edge) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	// Verify source and destination links exist
+	_, sourceExists := s.links[edge.Source]
+	_, destinationExists := s.links[edge.Destination]
+	if !sourceExists || !destinationExists {
+		return xerrors.Errorf("upsert edge: %w", graph.ErrUnknownEdgeLinks)
+	}
+
+	// Scan edge list from source
+	for _, edgeID := range s.linkEdgeMap[edge.Source] {
+		existingEdge := s.edges[edgeID]
+		if existingEdge.Source == edge.Source && existingEdge.Destination == edge.Destination {
+			existingEdge.UpdatedAt = time.Now()
+			*edge = *existingEdge
+			return nil
+		}
+	}
+
+	// Insert new edge
+	for {
+		edge.ID = uuid.New()
+		if s.edges[edge.ID] == nil {
+			break
+		}
+	}
+
+	// Make copy
+	edge.UpdatedAt = time.Now()
+	eCopy := new(graph.Edge)
+	*eCopy = *edge
+	s.edges[eCopy.ID] = eCopy
+
+	// Append the edge ID to the list of edges originating from the
+	// edge's source link.
+	s.linkEdgeMap[edge.Source] = append(s.linkEdgeMap[edge.Source], eCopy.ID)
 	return nil
 }
