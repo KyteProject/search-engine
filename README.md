@@ -45,7 +45,7 @@ components needed; these were then turned into cards and organised on a `Kanban`
 # Requirements Analysis
 
 We answer two things: *what* do we need to develop, and *how completely* would it meet our requirements. `User Stories`
-use the template from Attislan. <small>_[2]_</small>
+use the template from Atlassian. <small>_[2]_</small>
 
 ## Functional Requirements
 
