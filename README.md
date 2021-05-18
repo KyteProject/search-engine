@@ -158,8 +158,8 @@ database.
 
 ## Migrations
 
-Migrations will use the `gomigrate` tool <small>_[6]_</small>. This tool helps us to update or rollback our database
-schema from the command line.
+Migrations will use the `gomigrate` tool <small>_[6]_</small>. This tool helps to update or rollback the database schema
+from the command line.
 
 # Acknowledgements
 

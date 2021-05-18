@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS edges
     src,
     dst
 )
-    )
+    );
