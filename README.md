@@ -1,12 +1,20 @@
 # Introduction
 
-Search Engine is a personal, educational project and functional search engine. The purpose was to explore and
-familiarise myself with various technology and demonstrate an understanding of fundamental software engineering
-concepts.
+Search Engine is a personal, educational project and functional search engine. It is a work-in-progress.
+
+The purpose is to familiarise myself with some more technology and demonstrate an understanding of fundamental software
+engineering concepts.
+
+The intention is to mimic a complete `Agile` process, create the `monolithic` application, including `tests`, and then
+simulate a "scale up" scenario by splitting the `monolithic` application into `microservices`.
+
+All credit should go
+to [Achilleas Anagnostopoulos](https://www.amazon.co.uk/Hands-Software-Engineering-Golang-programming/dp/1838554491) for
+the book this project is derived from. <small>_[1]_</small>
 
 Initially, the project employs a monolithic architecture. The components are built using the `proxy` design pattern that
-allows them to remain decoupled and communicate - this allows for extracting components into a separate service should
-the need arise and simplify the transition to a `microservice` architecture.
+allows them to remain decoupled and communicate - this allows for extracting components into separate services when it
+needs to scale, and simplifies the transition to a `microservice` architecture.
 
 The project adheres to `SOLID` principles. <small>_[3]_</small>
 
