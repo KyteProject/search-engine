@@ -195,13 +195,15 @@ OK: 10 passed
 --- PASS: Test (7.38s)
 PASS
 coverage: 83.1% of statements
-ok      search-engine/linkgraph/store/cockroachdb        7.398s  coverage: 83.1% of statements
+ok      search-engine/linkgraph/store/cockroachdb
+7.398s  coverage: 83.1% of statements
 === RUN   Test
 OK: 10 passed
 --- PASS: Test (0.31s)
 PASS
 coverage: 100.0% of statements
-ok      search-engine/linkgraph/store/memory     0.327s  coverage: 100.0% of statements
+ok      search-engine/linkgraph/store/memory
+0.327s  coverage: 100.0% of statements
 ```
 
 # Acknowledgements
