@@ -171,7 +171,7 @@ In order to run migrations you need an environmental variable with the connectio
 ```BASH
 dan@Sol:~/search-engine$ export CDB_MIGRATE='cockroachdb://root@localhost:26257/linkgraph?sslmode=disable'
 
-dan@Sol:~/search-engine$ migrate -database ${CDB_MIGRATE} -path linkgraph/store/cockroachdb/migrations up
+dan@Sol:~/search-engine$ make db-migrations-up
 1/u create_links_table (40.725ms)
 2/u create_edges_table (168.5279ms)
 
