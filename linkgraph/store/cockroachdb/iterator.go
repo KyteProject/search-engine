@@ -8,9 +8,9 @@ import (
 
 // linkIterator is a graph.LinkIterator implementation for the cdb graph.
 type linkIterator struct {
-rows        *sql.Rows
-lastErr     error
-latchedLink *graph.Link
+	rows        *sql.Rows
+	lastErr     error
+	latchedLink *graph.Link
 }
 
 // Next implements graph.LinkIterator.
