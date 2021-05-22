@@ -22,7 +22,7 @@ var (
 
 	// If insert duplicate change updated_at to current timestamp
 	upsertEdgeQuery = `
-		INSERT INTO edges (src, dst, updated_at) VALUES ($1, $1, NOW())
+		INSERT INTO edges (src, dst, updated_at) VALUES ($1, $2, NOW())
 		ON CONFLICT (src, dst) DO UPDATE SET updated_at=NOW()
 		RETURNING id, updated_at`
 	edgesInPartitionQuery = `

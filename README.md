@@ -165,6 +165,45 @@ database.
 Migrations will use the `gomigrate` tool <small>_[6]_</small>. This tool helps to update or rollback the database schema
 from the command line.
 
+`CockroachDB` migrations are  found in: `linkgraph/store/cockroachdb/migrations`
+
+In order to run migrations you need an environmental variable with the connection string. We can then run the migrate command manually or use the make file:
+```BASH
+dan@Sol:~/search-engine$ export CDB_MIGRATE='cockroachdb://root@localhost:26257/linkgraph?sslmode=disable'
+
+dan@Sol:~/search-engine$ migrate -database ${CDB_MIGRATE} -path linkgraph/store/cockroachdb/migrations up
+1/u create_links_table (40.725ms)
+2/u create_edges_table (168.5279ms)
+
+dan@Sol:~/search-engine$ make db-migrations-down
+Are you sure you want to apply all down migrations? [y/N]
+Applying all down migrations
+2/d create_edges_table (161.7728ms)
+1/d create_links_table (275.748ms)
+```
+
+# Testing
+
+All tests can be run by using the Makefile command:
+`make test`
+
+```BASH
+dan@Sol:~/github.com/kyteproject/search-engine$ make test
+[go test] running tests and collecting coverage metrics
+=== RUN   Test
+OK: 10 passed
+--- PASS: Test (7.38s)
+PASS
+coverage: 83.1% of statements
+ok      search-engine/linkgraph/store/cockroachdb        7.398s  coverage: 83.1% of statements
+=== RUN   Test
+OK: 10 passed
+--- PASS: Test (0.31s)
+PASS
+coverage: 100.0% of statements
+ok      search-engine/linkgraph/store/memory     0.327s  coverage: 100.0% of statements
+```
+
 # Acknowledgements
 
 This project and information is sourced primarily from the book _Hands-On Software Engineering with Golang_ by Achilleas
